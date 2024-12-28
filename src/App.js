@@ -32,7 +32,6 @@ export default function App() {
     setColorScheme(value || (colorScheme === "dark" ? "light" : "dark"));
   useHotkeys([["mod+J", () => toggleColorScheme()]]);
 
-  // Task creation
   function createTask() {
     const newTask = {
       title: taskTitle.current.value,
@@ -44,7 +43,6 @@ export default function App() {
     saveTasks([...tasks, newTask]);
   }
 
-  // Delete task
   function deleteTask(index) {
     const clonedTasks = [...tasks];
     clonedTasks.splice(index, 1);
@@ -52,14 +50,12 @@ export default function App() {
     saveTasks(clonedTasks);
   }
 
-  // Load tasks from localStorage
   function loadTasks() {
     let loadedTasks = localStorage.getItem("tasks");
     let tasks = JSON.parse(loadedTasks);
     if (tasks) setTasks(tasks);
   }
 
-  // Save tasks to localStorage
   function saveTasks(tasks) {
     localStorage.setItem("tasks", JSON.stringify(tasks));
   }
@@ -68,7 +64,6 @@ export default function App() {
     loadTasks();
   }, []);
 
-  // Sort tasks by state
   const sortTasks = (state) => {
     const sortedTasks = [...tasks].sort((a, b) => {
       if (a.state === state && b.state !== state) return -1;
@@ -78,13 +73,11 @@ export default function App() {
     setTasks(sortedTasks);
   };
 
-  // Filter tasks by state
   const filterTasks = (state) => {
     const filteredTasks = tasks.filter((task) => task.state === state);
     setTasks(filteredTasks);
   };
 
-  // Sort by deadline
   const sortByDeadline = () => {
     const sortedByDeadline = [...tasks].sort((a, b) => new Date(a.deadline) - new Date(b.deadline));
     setTasks(sortedByDeadline);
